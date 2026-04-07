@@ -15,16 +15,16 @@ def main() -> None:
             name=race_data["name"],
             defaults={
                 "description": race_data.get("description", "")
-            }
+            },
         )
 
         for skill_data in race_data.get("skills", []):
             Skill.objects.get_or_create(
                 name=skill_data["name"],
+                race=race,
                 defaults={
                     "bonus": skill_data["bonus"],
-                    "race": race,
-                }
+                },
             )
 
         guild = None
@@ -34,7 +34,7 @@ def main() -> None:
                 name=guild_data["name"],
                 defaults={
                     "description": guild_data.get("description")
-                }
+                },
             )
 
         Player.objects.get_or_create(
@@ -44,9 +44,8 @@ def main() -> None:
                 "bio": player_data["bio"],
                 "race": race,
                 "guild": guild,
-            }
+            },
         )
-
 
 if __name__ == "__main__":
     main()
